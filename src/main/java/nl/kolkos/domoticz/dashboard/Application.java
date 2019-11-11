@@ -1,5 +1,6 @@
 package nl.kolkos.domoticz.dashboard;
 
+import nl.kolkos.domoticz.dashboard.configurations.DomoticzConfiguration;
 import nl.kolkos.domoticz.dashboard.entities.Dimmer;
 import nl.kolkos.domoticz.dashboard.entities.Switch;
 import nl.kolkos.domoticz.dashboard.models.CommandRunner;
@@ -23,23 +24,25 @@ public class Application {
 	}
 
 	@Bean
-	public CommandLineRunner demo(SwitchService switchService, DimmerService dimmerService) {
+	public CommandLineRunner demo(SwitchService switchService, DimmerService dimmerService, DomoticzConfiguration domoticzConfiguration) {
 		return (args) -> {
-			CommandRunner commandRunner = new CommandRunner();
+			CommandRunner commandRunner = new CommandRunner(domoticzConfiguration);
 
 			Switch light1 = Switch.builder()
-					.gid(6)
+					.gid(1001)
 					.name("Light #1")
 					.build();
 
 			Switch light2 = Switch.builder()
-					.gid(666)
+					.gid(2002)
 					.name("Light #2")
 					.build();
 
 			Dimmer dimmer = Dimmer.builder()
-					.gid(5666)
+					.gid(3003)
 					.name("Random dimmer")
+					.minLevel(0)
+					.maxLevel(13)
 					.build();
 
 			switchService.save(light1);

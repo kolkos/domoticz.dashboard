@@ -11,7 +11,7 @@ public class DimmerOnCommand implements Command {
     }
 
     @Override
-    public void execute() {
-        dimmer.on();
+    public String execute() {
+        return dimmer.on();
     }
 }

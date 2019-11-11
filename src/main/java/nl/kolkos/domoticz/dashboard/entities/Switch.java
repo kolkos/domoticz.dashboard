@@ -17,12 +17,12 @@ public class Switch {
     private int gid;
     private String name;
 
-    public void on(){
-        System.out.printf("Switching SWITCH '%s' with GID '%d' on%n", this.name, this.gid);
+    public String on(){
+        return String.format("/json.htm?type=command&param=switchlight&idx=%d&switchcmd=On", this.gid);
     }
 
-    public void off(){
-        System.out.printf("Switching SWITCH '%s' with GID '%d' off%n", this.name, this.gid);
+    public String off(){
+        return String.format("/json.htm?type=command&param=switchlight&idx=%d&switchcmd=Off", this.gid);
     }
 
 }

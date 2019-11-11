@@ -14,7 +14,7 @@ public class DimmerSetLevelCommand implements Command {
     }
 
     @Override
-    public void execute() {
-        dimmer.setLvel(level);
+    public String execute() {
+        return dimmer.setLvel(level);
     }
 }

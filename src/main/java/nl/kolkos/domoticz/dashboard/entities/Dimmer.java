@@ -19,16 +19,19 @@ public class Dimmer {
     private int gid;
     private String name;
 
-    public void on() {
-        System.out.printf("Switching DIMMER '%s' with GID '%d' on%n", this.name, this.gid);
+    private int minLevel;
+    private int maxLevel;
+
+    public String on() {
+        return String.format("/json.htm?type=command&param=switchlight&idx=%d&switchcmd=On", this.gid);
     }
 
-    public void off() {
-        System.out.printf("Switching DIMMER '%s' with GID '%d' off%n", this.name, this.gid);
+    public String off() {
+        return String.format("/json.htm?type=command&param=switchlight&idx=%d&switchcmd=Off", this.gid);
     }
 
-    public void setLvel(Level level) {
-        System.out.printf("Switching DIMMER '%s' with GID '%d' to level '%d'%n", this.name, this.gid, level.getLevelToSet());
+    public String setLvel(Level level) {
+        return String.format("/json.htm?type=command&param=switchlight&idx=%d&switchcmd=Set%%20Level&level=%d", this.gid, level.getLevelToSet());
     }
 
 }

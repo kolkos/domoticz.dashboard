@@ -11,7 +11,7 @@ public class SwitchOnCommand implements Command {
     }
 
     @Override
-    public void execute() {
-        aSwitch.on();
+    public String execute() {
+        return aSwitch.on();
     }
 }

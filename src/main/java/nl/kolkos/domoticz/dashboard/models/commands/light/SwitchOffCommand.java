@@ -11,7 +11,7 @@ public class SwitchOffCommand implements Command {
     }
 
     @Override
-    public void execute() {
-        aSwitch.off();
+    public String execute() {
+        return aSwitch.off();
     }
 }
