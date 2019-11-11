@@ -1,7 +1,7 @@
-package nl.kolkos.domoticz.dashboard.entities.commands.light;
+package nl.kolkos.domoticz.dashboard.models.commands.light;
 
 import nl.kolkos.domoticz.dashboard.entities.Switch;
-import nl.kolkos.domoticz.dashboard.entities.commands.Command;
+import nl.kolkos.domoticz.dashboard.models.commands.Command;
 
 public class SwitchOffCommand implements Command {
     private Switch aSwitch;

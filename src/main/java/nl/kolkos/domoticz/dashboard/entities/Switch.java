@@ -1,5 +1,6 @@
 package nl.kolkos.domoticz.dashboard.entities;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -7,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Data
+@Builder
 @Entity
 public class Switch {
     @Id
@@ -16,11 +18,11 @@ public class Switch {
     private String name;
 
     public void on(){
-        System.out.println("Switch LIGHT on");
+        System.out.printf("Switching SWITCH '%s' with GID '%d' on%n", this.name, this.gid);
     }
 
     public void off(){
-        System.out.println("Switch LIGHT off");
+        System.out.printf("Switching SWITCH '%s' with GID '%d' off%n", this.name, this.gid);
     }
 
 }

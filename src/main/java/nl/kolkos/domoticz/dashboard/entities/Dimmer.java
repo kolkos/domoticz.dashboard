@@ -1,12 +1,15 @@
 package nl.kolkos.domoticz.dashboard.entities;
 
+import lombok.Builder;
 import lombok.Data;
+import nl.kolkos.domoticz.dashboard.models.Level;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Data
+@Builder
 @Entity
 public class Dimmer {
 
@@ -17,15 +20,15 @@ public class Dimmer {
     private String name;
 
     public void on() {
-        System.out.println("Switching DIMMER on");
+        System.out.printf("Switching DIMMER '%s' with GID '%d' on%n", this.name, this.gid);
     }
 
     public void off() {
-        System.out.println("Switching DIMMER off");
+        System.out.printf("Switching DIMMER '%s' with GID '%d' off%n", this.name, this.gid);
     }
 
     public void setLvel(Level level) {
-        System.out.println("Setting DIMMER level to " + level.getLevelToSet());
+        System.out.printf("Switching DIMMER '%s' with GID '%d' to level '%d'%n", this.name, this.gid, level.getLevelToSet());
     }
 
 }
