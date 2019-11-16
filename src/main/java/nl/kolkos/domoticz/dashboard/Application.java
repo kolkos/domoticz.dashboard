@@ -10,6 +10,7 @@ import nl.kolkos.domoticz.dashboard.models.commands.dimmer.DimmerSetLevelCommand
 import nl.kolkos.domoticz.dashboard.models.commands.light.SwitchOffCommand;
 import nl.kolkos.domoticz.dashboard.models.commands.light.SwitchOnCommand;
 import nl.kolkos.domoticz.dashboard.services.DimmerService;
+import nl.kolkos.domoticz.dashboard.services.RestClient;
 import nl.kolkos.domoticz.dashboard.services.SwitchService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -24,9 +25,9 @@ public class Application {
 	}
 
 	@Bean
-	public CommandLineRunner demo(SwitchService switchService, DimmerService dimmerService, DomoticzConfiguration domoticzConfiguration) {
+	public CommandLineRunner demo(SwitchService switchService, DimmerService dimmerService, DomoticzConfiguration domoticzConfiguration, RestClient restClient) {
 		return (args) -> {
-			CommandRunner commandRunner = new CommandRunner(domoticzConfiguration);
+			CommandRunner commandRunner = new CommandRunner(domoticzConfiguration, restClient);
 
 			Switch light1 = Switch.builder()
 					.gid(1001)
