@@ -20,56 +20,54 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class Application {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 
-	@Bean
-	public CommandLineRunner demo(SwitchService switchService, DimmerService dimmerService, DomoticzConfiguration domoticzConfiguration, RestClient restClient) {
-		return (args) -> {
-			CommandRunner commandRunner = new CommandRunner(domoticzConfiguration, restClient);
+    @Bean
+    public CommandLineRunner demo(SwitchService switchService, DimmerService dimmerService, DomoticzConfiguration domoticzConfiguration, RestClient restClient) {
+        return (args) -> {
+            CommandRunner commandRunner = new CommandRunner(domoticzConfiguration, restClient);
 
-			Switch light1 = Switch.builder()
-					.gid(1001)
-					.name("Light #1")
-					.build();
+            Switch light1 = new Switch();
+            light1.setGid(1001);
+            light1.setName("Light #1");
 
-			Switch light2 = Switch.builder()
-					.gid(2002)
-					.name("Light #2")
-					.build();
+            Switch light2 = new Switch();
+            light2.setGid(2002);
+            light2.setName("Light #2");
 
-			Dimmer dimmer = Dimmer.builder()
-					.gid(3003)
-					.name("Random dimmer")
-					.minLevel(0)
-					.maxLevel(13)
-					.build();
+            Dimmer dimmer = Dimmer.builder()
+                    .gid(3003)
+                    .name("Random dimmer")
+                    .minLevel(0)
+                    .maxLevel(13)
+                    .build();
 
-			switchService.save(light1);
-			switchService.save(light2);
-			dimmerService.save(dimmer);
+            switchService.save(light1);
+            switchService.save(light2);
+            dimmerService.save(dimmer);
 
-			Command switchLight1On = new SwitchOnCommand(light1);
-			Command switchLight2Off = new SwitchOffCommand(light2);
+            Command switchLight1On = new SwitchOnCommand(light1);
+            Command switchLight2Off = new SwitchOffCommand(light2);
 
-			Level dimmerLevel50 = Level.builder()
-					.levelToSet(6)
-					.percentage(50)
-					.build();
-			Command dimmerSetLevelCommand = new DimmerSetLevelCommand(dimmerLevel50, dimmer);
+            Level dimmerLevel50 = Level.builder()
+                    .levelToSet(6)
+                    .percentage(50)
+                    .build();
+            Command dimmerSetLevelCommand = new DimmerSetLevelCommand(dimmerLevel50, dimmer);
 
-			commandRunner.setCommand(switchLight1On);
-			commandRunner.run();
+            commandRunner.setCommand(switchLight1On);
+            commandRunner.run();
 
-			commandRunner.setCommand(switchLight2Off);
-			commandRunner.run();
+            commandRunner.setCommand(switchLight2Off);
+            commandRunner.run();
 
-			commandRunner.setCommand(dimmerSetLevelCommand);
-			commandRunner.run();
+            commandRunner.setCommand(dimmerSetLevelCommand);
+            commandRunner.run();
 
 
-		};
-	}
+        };
+    }
 
 }

@@ -2,6 +2,7 @@ package nl.kolkos.domoticz.dashboard.entities;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import nl.kolkos.domoticz.dashboard.models.Level;
 
 import javax.persistence.Entity;
@@ -9,8 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Data
-@Builder
 @Entity
+@NoArgsConstructor
 public class Dimmer {
 
     @Id

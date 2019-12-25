@@ -10,19 +10,17 @@ import javax.persistence.Id;
 @Data
 @Entity
 @NoArgsConstructor
-public class Switch {
+public class Screen {
+
     @Id
     @GeneratedValue
     private long id;
-    private int gid;
+
     private String name;
+    private String description;
+    private String safeName;
 
-    public String on() {
-        return String.format("/json.htm?type=command&param=switchlight&idx=%d&switchcmd=On", this.gid);
-    }
+    private int position;
 
-    public String off() {
-        return String.format("/json.htm?type=command&param=switchlight&idx=%d&switchcmd=Off", this.gid);
-    }
 
 }
