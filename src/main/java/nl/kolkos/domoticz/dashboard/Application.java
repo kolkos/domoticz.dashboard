@@ -37,12 +37,12 @@ public class Application {
             light2.setGid(2002);
             light2.setName("Light #2");
 
-            Dimmer dimmer = Dimmer.builder()
-                    .gid(3003)
-                    .name("Random dimmer")
-                    .minLevel(0)
-                    .maxLevel(13)
-                    .build();
+            Dimmer dimmer = new Dimmer();
+            dimmer.setGid(15);
+            dimmer.setName("Hal");
+            dimmer.setMinLevel(0);
+            dimmer.setMaxLevel(13);
+
 
             switchService.save(light1);
             switchService.save(light2);

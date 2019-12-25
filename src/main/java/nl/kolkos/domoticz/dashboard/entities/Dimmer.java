@@ -31,8 +31,8 @@ public class Dimmer {
         return String.format("/json.htm?type=command&param=switchlight&idx=%d&switchcmd=Off", this.gid);
     }
 
-    public String setLvel(Level level) {
-        return String.format("/json.htm?type=command&param=switchlight&idx=%d&switchcmd=Set%%20Level&level=%d", this.gid, level.getLevelToSet());
+    public String setLevel(Level level) {
+        return String.format("/json.htm?type=command&param=switchlight&idx=%d&switchcmd=Set Level&level=%d", this.gid, level.getLevelToSet());
     }
 
 }

@@ -21,8 +21,8 @@ public class CommandRunner {
     public void run() {
         String url = domoticzConfiguration.getBaseUrl() + command.execute();
         System.out.println("Calling url: " + url);
-//        String response = restClient.callUrl(url);
-//        System.out.println(response);
+        String response = restClient.callUrl(url);
+        System.out.println(response);
 
 
     }

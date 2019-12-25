@@ -10,4 +10,10 @@ public class DomoticzConfiguration {
     @Value("${domoticz.url.base}")
     private String baseUrl;
 
+    @Value("${domoticz.username}")
+    private String username;
+
+    @Value("${domoticz.password}")
+    private String password;
+
 }
