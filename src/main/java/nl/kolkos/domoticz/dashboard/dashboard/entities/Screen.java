@@ -1,4 +1,4 @@
-package nl.kolkos.domoticz.dashboard.domoticz.entities;
+package nl.kolkos.domoticz.dashboard.dashboard.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
-package nl.kolkos.domoticz.dashboard.domoticz.repositories;
+package nl.kolkos.domoticz.dashboard.dashboard.repositories;
 
-import nl.kolkos.domoticz.dashboard.domoticz.entities.Panel;
+import nl.kolkos.domoticz.dashboard.dashboard.entities.Panel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
