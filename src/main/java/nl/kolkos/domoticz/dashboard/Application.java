@@ -15,7 +15,9 @@ import nl.kolkos.domoticz.dashboard.domoticz.models.commands.light.SwitchOffComm
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.light.SwitchOnCommand;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.scene.SceneOnCommand;
 import nl.kolkos.domoticz.dashboard.domoticz.services.DimmerService;
+import nl.kolkos.domoticz.dashboard.domoticz.services.HeaterService;
 import nl.kolkos.domoticz.dashboard.domoticz.services.RestClient;
+import nl.kolkos.domoticz.dashboard.domoticz.services.SceneService;
 import nl.kolkos.domoticz.dashboard.domoticz.services.SwitchService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -30,7 +32,7 @@ public class Application {
     }
 
     @Bean
-    public CommandLineRunner demo(SwitchService switchService, DimmerService dimmerService, DomoticzConfiguration domoticzConfiguration, RestClient restClient) {
+    public CommandLineRunner demo(SwitchService switchService, DimmerService dimmerService, DomoticzConfiguration domoticzConfiguration, RestClient restClient, HeaterService heaterService, SceneService sceneService) {
         return (args) -> {
             CommandRunner commandRunner = new CommandRunner(domoticzConfiguration, restClient);
 
@@ -52,11 +54,8 @@ public class Application {
             switchService.save(light1);
             switchService.save(light2);
             dimmerService.save(dimmer);
-            // TODO: create scene service
-            // TODO: create heater service
-
-
-
+            sceneService.save(scene);
+            heaterService.save(heater);
 
 
             Command switchLight1On = createSwitchOnCommand(light1);
