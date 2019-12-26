@@ -11,7 +11,7 @@ import javax.persistence.Id;
 @Data
 @Entity
 @NoArgsConstructor
-public class Dimmer {
+public class Dimmer implements Device{
 
     @Id
     @GeneratedValue
@@ -34,4 +34,8 @@ public class Dimmer {
         return String.format("/json.htm?type=command&param=switchlight&idx=%d&switchcmd=Set Level&level=%d", this.gid, level.getLevelToSet());
     }
 
+    @Override
+    public boolean filter(DeviceType deviceType) {
+        return deviceType == DeviceType.DIMMER;
+    }
 }

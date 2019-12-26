@@ -1,16 +1,15 @@
 package nl.kolkos.domoticz.dashboard.domoticz.entities;
 
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Data
 @Entity
-@NoArgsConstructor
-public class Switch implements Device{
+@Data
+public class Scene implements Device {
     @Id
     @GeneratedValue
     private long id;
@@ -18,15 +17,11 @@ public class Switch implements Device{
     private String name;
 
     public String on() {
-        return String.format("/json.htm?type=command&param=switchlight&idx=%d&switchcmd=On", this.gid);
-    }
-
-    public String off() {
-        return String.format("/json.htm?type=command&param=switchlight&idx=%d&switchcmd=Off", this.gid);
+        return String.format("/json.htm?type=command&param=switchscene&idx=%d&switchcmd=On", this.gid);
     }
 
     @Override
     public boolean filter(DeviceType deviceType) {
-        return deviceType == DeviceType.SWITCH;
+        return deviceType == DeviceType.SCENE;
     }
 }

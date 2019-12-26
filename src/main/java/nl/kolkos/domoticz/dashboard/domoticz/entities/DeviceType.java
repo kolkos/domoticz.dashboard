@@ -4,5 +4,7 @@ public enum DeviceType {
     SWITCH,
     DIMMER,
     HEATER,
-    TEMPERATURE
+    TEMPERATURE,
+    SCENE,
+    GROUP
 }

@@ -2,13 +2,17 @@ package nl.kolkos.domoticz.dashboard;
 
 import nl.kolkos.domoticz.dashboard.domoticz.configurations.DomoticzConfiguration;
 import nl.kolkos.domoticz.dashboard.domoticz.entities.Dimmer;
+import nl.kolkos.domoticz.dashboard.domoticz.entities.Heater;
+import nl.kolkos.domoticz.dashboard.domoticz.entities.Scene;
 import nl.kolkos.domoticz.dashboard.domoticz.entities.Switch;
 import nl.kolkos.domoticz.dashboard.domoticz.models.CommandRunner;
 import nl.kolkos.domoticz.dashboard.domoticz.models.Level;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.Command;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.dimmer.DimmerSetLevelCommand;
+import nl.kolkos.domoticz.dashboard.domoticz.models.commands.heater.HeaterSetTemperatureCommand;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.light.SwitchOffCommand;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.light.SwitchOnCommand;
+import nl.kolkos.domoticz.dashboard.domoticz.models.commands.scene.SceneOnCommand;
 import nl.kolkos.domoticz.dashboard.domoticz.services.DimmerService;
 import nl.kolkos.domoticz.dashboard.domoticz.services.RestClient;
 import nl.kolkos.domoticz.dashboard.domoticz.services.SwitchService;
@@ -29,33 +33,37 @@ public class Application {
         return (args) -> {
             CommandRunner commandRunner = new CommandRunner(domoticzConfiguration, restClient);
 
-            Switch light1 = new Switch();
-            light1.setGid(1001);
-            light1.setName("Light #1");
 
-            Switch light2 = new Switch();
-            light2.setGid(2002);
-            light2.setName("Light #2");
+            Switch light1 = createSwitch1();
+            Switch light2 = createSwitch2();
 
-            Dimmer dimmer = new Dimmer();
-            dimmer.setGid(15);
-            dimmer.setName("Hal");
-            dimmer.setMinLevel(0);
-            dimmer.setMaxLevel(13);
+            Dimmer dimmer = createDimmer();
+
+            Heater heater = createHeater();
+
+
+
+            Scene scene = new Scene();
+            scene.setGid(9000);
+            scene.setName("Test scene");
 
 
             switchService.save(light1);
             switchService.save(light2);
             dimmerService.save(dimmer);
+            // TODO: create scene service
+            // TODO: create heater service
 
-            Command switchLight1On = new SwitchOnCommand(light1);
-            Command switchLight2Off = new SwitchOffCommand(light2);
 
-            Level dimmerLevel50 = Level.builder()
-                    .levelToSet(6)
-                    .percentage(50)
-                    .build();
-            Command dimmerSetLevelCommand = new DimmerSetLevelCommand(dimmerLevel50, dimmer);
+
+
+
+            Command switchLight1On = createSwitchOnCommand(light1);
+            Command switchLight2Off = createSwitchOffCommand(light2);
+            Command switchSceneOn = new SceneOnCommand(scene);
+            Command dimmerSetLevelCommand = createDimmerLevelCommand(6, 50, dimmer);
+            HeaterSetTemperatureCommand heaterSetTemperatureCommand = new HeaterSetTemperatureCommand(15, heater);
+
 
             commandRunner.setCommand(switchLight1On);
             commandRunner.run();
@@ -66,8 +74,69 @@ public class Application {
             commandRunner.setCommand(dimmerSetLevelCommand);
             commandRunner.run();
 
+            commandRunner.setCommand(switchSceneOn);
+            commandRunner.run();
+
+            commandRunner.setCommand(heaterSetTemperatureCommand);
+            commandRunner.run();
+
 
         };
+    }
+
+    private Switch createSwitch(int gid, String name) {
+        Switch aSwitch = new Switch();
+        aSwitch.setGid(gid);
+        aSwitch.setName(name);
+
+        return aSwitch;
+    }
+
+
+    private Switch createSwitch1() {
+        return createSwitch(1001, "Light #1");
+    }
+
+    private Switch createSwitch2() {
+        return createSwitch(2002, "Light #2");
+    }
+
+    private Dimmer createDimmer() {
+        Dimmer dimmer = new Dimmer();
+        dimmer.setGid(15);
+        dimmer.setName("Hal");
+        dimmer.setMinLevel(0);
+        dimmer.setMaxLevel(13);
+
+        return dimmer;
+    }
+
+    private Command createSwitchOnCommand(Switch aSwitch) {
+        return new SwitchOnCommand(aSwitch);
+    }
+
+    private Command createSwitchOffCommand(Switch aSwitch) {
+        return new SwitchOffCommand(aSwitch);
+    }
+
+    private Level createDimmerLevel(int level, int percentage) {
+        return Level.builder()
+                .levelToSet(level)
+                .percentage(percentage)
+                .build();
+    }
+
+    private DimmerSetLevelCommand createDimmerLevelCommand(int level, int percentage, Dimmer dimmer) {
+        Level dimmerLevel = createDimmerLevel(level, percentage);
+        return new DimmerSetLevelCommand(dimmerLevel, dimmer);
+    }
+
+    private Heater createHeater() {
+        Heater heater = new Heater();
+        heater.setGid(35);
+        heater.setName("Office");
+
+        return heater;
     }
 
 }

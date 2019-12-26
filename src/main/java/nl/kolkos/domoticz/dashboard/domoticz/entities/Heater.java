@@ -1,0 +1,28 @@
+package nl.kolkos.domoticz.dashboard.domoticz.entities;
+
+import lombok.Data;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+@Data
+public class Heater implements Device{
+
+    @Id
+    @GeneratedValue
+    private long id;
+    private int gid;
+    private String name;
+
+
+    public String setTemperature(int temperature) {
+        return String.format("/json.htm?type=command&param=setsetpoint&idx=%d&setpoint=%d", this.gid, temperature);
+    }
+
+    @Override
+    public boolean filter(DeviceType deviceType) {
+        return deviceType == DeviceType.HEATER;
+    }
+}
