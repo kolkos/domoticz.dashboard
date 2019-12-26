@@ -34,6 +34,10 @@ public class Dimmer implements Device{
         return String.format("/json.htm?type=command&param=switchlight&idx=%d&switchcmd=Set Level&level=%d", this.gid, level.getLevelToSet());
     }
 
+    public String getStatus() {
+        return String.format("/json.htm?type=devices&rid=%d", this.gid);
+    }
+
     @Override
     public boolean filter(DeviceType deviceType) {
         return deviceType == DeviceType.DIMMER;

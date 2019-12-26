@@ -8,6 +8,7 @@ import nl.kolkos.domoticz.dashboard.domoticz.entities.Switch;
 import nl.kolkos.domoticz.dashboard.domoticz.models.CommandRunner;
 import nl.kolkos.domoticz.dashboard.domoticz.models.Level;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.Command;
+import nl.kolkos.domoticz.dashboard.domoticz.models.commands.dimmer.DimmerGetStatusCommand;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.dimmer.DimmerSetLevelCommand;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.heater.HeaterSetTemperatureCommand;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.light.SwitchOffCommand;
@@ -61,7 +62,10 @@ public class Application {
             Command switchLight1On = createSwitchOnCommand(light1);
             Command switchLight2Off = createSwitchOffCommand(light2);
             Command switchSceneOn = new SceneOnCommand(scene);
-            Command dimmerSetLevelCommand = createDimmerLevelCommand(6, 50, dimmer);
+            Command dimmerSetLevelCommand = createDimmerLevelCommand(4, 25, dimmer);
+            Command dimmerGetStatusCommand = new DimmerGetStatusCommand(dimmer);
+
+
             HeaterSetTemperatureCommand heaterSetTemperatureCommand = new HeaterSetTemperatureCommand(15, heater);
 
 
@@ -72,6 +76,9 @@ public class Application {
             commandRunner.run();
 
             commandRunner.setCommand(dimmerSetLevelCommand);
+            commandRunner.run();
+
+            commandRunner.setCommand(dimmerGetStatusCommand);
             commandRunner.run();
 
             commandRunner.setCommand(switchSceneOn);
