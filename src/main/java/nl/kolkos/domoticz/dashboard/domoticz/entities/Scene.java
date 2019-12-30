@@ -22,7 +22,7 @@ public class Scene implements Device {
 
     @Override
     public String getStatus() {
-        return String.format("/json.htm?type=devices&rid=%d", this.gid);
+        return String.format("/json.htm?type=scenes&rid=%d", this.gid);
     }
 
     @Override
