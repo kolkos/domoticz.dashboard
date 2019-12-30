@@ -3,6 +3,7 @@ package nl.kolkos.domoticz.dashboard.domoticz.entities;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import nl.kolkos.domoticz.dashboard.domoticz.models.Level;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,13 +12,7 @@ import javax.persistence.Id;
 @Data
 @Entity
 @NoArgsConstructor
-public class Dimmer implements Device{
-
-    @Id
-    @GeneratedValue
-    private long id;
-    private int gid;
-    private String name;
+public class Dimmer extends Device{
 
     private int minLevel;
     private int maxLevel;
@@ -34,6 +29,7 @@ public class Dimmer implements Device{
         return String.format("/json.htm?type=command&param=switchlight&idx=%d&switchcmd=Set Level&level=%d", this.gid, level.getLevelToSet());
     }
 
+    @Autowired
     public String getStatus() {
         return String.format("/json.htm?type=devices&rid=%d", this.gid);
     }

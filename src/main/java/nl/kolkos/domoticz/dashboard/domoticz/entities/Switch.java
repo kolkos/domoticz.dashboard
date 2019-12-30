@@ -10,12 +10,7 @@ import javax.persistence.Id;
 @Data
 @Entity
 @NoArgsConstructor
-public class Switch implements Device{
-    @Id
-    @GeneratedValue
-    private long id;
-    private int gid;
-    private String name;
+public class Switch extends Device{
 
     public String on() {
         return String.format("/json.htm?type=command&param=switchlight&idx=%d&switchcmd=On", this.gid);

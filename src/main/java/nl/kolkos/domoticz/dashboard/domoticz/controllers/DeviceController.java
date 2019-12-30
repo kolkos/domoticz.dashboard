@@ -25,9 +25,6 @@ public class DeviceController {
     private final DimmerService dimmerService;
     private final HeaterService heaterService;
 
-    @Autowired
-    private List<Device> devices;
-
     @GetMapping("/create/switch")
     public Switch createSwitch(@RequestParam int gid, @RequestParam String name) {
         Switch aSwitch = new Switch();
@@ -35,11 +32,6 @@ public class DeviceController {
         aSwitch.setGid(gid);
 
         return switchService.save(aSwitch);
-    }
-
-    @GetMapping("/list")
-    public List<Device> listDevices() {
-        return devices;
     }
 
 }
