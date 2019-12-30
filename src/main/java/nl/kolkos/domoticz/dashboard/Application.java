@@ -65,7 +65,7 @@ public class Application {
             Command dimmerGetStatusCommand = new DimmerGetStatusCommand(dimmer);
 
 
-            HeaterSetTemperatureCommand heaterSetTemperatureCommand = new HeaterSetTemperatureCommand(15, heater);
+            HeaterSetTemperatureCommand heaterSetTemperatureCommand = new HeaterSetTemperatureCommand(15.5, heater);
 
 
             commandRunner.setCommand(switchLight1On);

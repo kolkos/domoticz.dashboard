@@ -4,10 +4,10 @@ import nl.kolkos.domoticz.dashboard.domoticz.entities.Heater;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.Command;
 
 public class HeaterSetTemperatureCommand implements Command {
-    private int temperature;
+    private double temperature;
     private Heater heater;
 
-    public HeaterSetTemperatureCommand(int temperature, Heater heater) {
+    public HeaterSetTemperatureCommand(double temperature, Heater heater) {
         this.temperature = temperature;
         this.heater = heater;
     }

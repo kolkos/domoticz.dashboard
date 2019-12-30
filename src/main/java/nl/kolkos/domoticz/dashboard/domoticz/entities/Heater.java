@@ -17,8 +17,8 @@ public class Heater implements Device{
     private String name;
 
 
-    public String setTemperature(int temperature) {
-        return String.format("/json.htm?type=command&param=setsetpoint&idx=%d&setpoint=%d", this.gid, temperature);
+    public String setTemperature(double temperature) {
+        return String.format("/json.htm?type=command&param=setsetpoint&idx=%d&setpoint=%.1f", this.gid, temperature);
     }
 
     @Override
