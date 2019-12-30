@@ -21,6 +21,11 @@ public class Scene implements Device {
     }
 
     @Override
+    public String getStatus() {
+        return String.format("/json.htm?type=devices&rid=%d", this.gid);
+    }
+
+    @Override
     public boolean filter(DeviceType deviceType) {
         return deviceType == DeviceType.SCENE;
     }
