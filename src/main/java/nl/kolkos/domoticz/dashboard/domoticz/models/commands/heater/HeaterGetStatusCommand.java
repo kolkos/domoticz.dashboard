@@ -1,18 +1,18 @@
 package nl.kolkos.domoticz.dashboard.domoticz.models.commands.heater;
 
-import nl.kolkos.domoticz.dashboard.domoticz.entities.Dimmer;
+import nl.kolkos.domoticz.dashboard.domoticz.entities.Heater;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.Command;
 
 public class HeaterGetStatusCommand implements Command {
 
-    private Dimmer dimmer;
+    private Heater heater;
 
-    public HeaterGetStatusCommand(Dimmer dimmer) {
-        this.dimmer = dimmer;
+    public HeaterGetStatusCommand(Heater heater) {
+        this.heater = heater;
     }
 
     @Override
     public String execute() {
-        return dimmer.getStatus();
+        return heater.getStatus();
     }
 }
