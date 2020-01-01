@@ -6,5 +6,6 @@ public enum DeviceType {
     HEATER,
     TEMPERATURE,
     SCENE,
+    CONTACT,
     GROUP
 }

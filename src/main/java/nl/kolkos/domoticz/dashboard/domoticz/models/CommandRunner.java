@@ -1,10 +1,12 @@
 package nl.kolkos.domoticz.dashboard.domoticz.models;
 
+import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import nl.kolkos.domoticz.dashboard.domoticz.configurations.DomoticzConfiguration;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.Command;
 import nl.kolkos.domoticz.dashboard.domoticz.services.RestClient;
 import org.springframework.stereotype.Component;
+
 
 @Component
 @RequiredArgsConstructor
@@ -22,6 +24,10 @@ public class CommandRunner {
         String url = domoticzConfiguration.getBaseUrl() + command.execute();
         System.out.println("Calling url: " + url);
         String response = restClient.callUrl(url);
+
+        Gson gson = new Gson();
+        DomoticzResponse respObject = gson.fromJson(response, DomoticzResponse.class);
+
         System.out.println(response);
 
 

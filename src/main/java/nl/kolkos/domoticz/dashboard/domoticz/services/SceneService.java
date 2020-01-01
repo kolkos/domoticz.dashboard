@@ -13,4 +13,8 @@ public class SceneService {
     public Scene save(Scene scene) {
         return sceneRepository.save(scene);
     }
+
+    public Iterable<Scene> findAll() {
+        return sceneRepository.findAll();
+    }
 }

@@ -1,8 +1,8 @@
 package nl.kolkos.domoticz.dashboard.domoticz.controllers;
 
 import lombok.RequiredArgsConstructor;
-import nl.kolkos.domoticz.dashboard.domoticz.entities.Device;
 import nl.kolkos.domoticz.dashboard.domoticz.entities.Switch;
+import nl.kolkos.domoticz.dashboard.domoticz.repositories.DeviceRepository;
 import nl.kolkos.domoticz.dashboard.domoticz.services.DimmerService;
 import nl.kolkos.domoticz.dashboard.domoticz.services.HeaterService;
 import nl.kolkos.domoticz.dashboard.domoticz.services.SceneService;
@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,5 +31,11 @@ public class DeviceController {
 
         return switchService.save(aSwitch);
     }
+
+    @GetMapping("/list")
+    public Iterable getDevices() {
+        return sceneService.findAll();
+    }
+
 
 }

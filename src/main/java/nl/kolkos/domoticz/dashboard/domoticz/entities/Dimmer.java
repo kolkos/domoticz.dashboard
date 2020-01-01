@@ -29,7 +29,7 @@ public class Dimmer extends Device{
         return String.format("/json.htm?type=command&param=switchlight&idx=%d&switchcmd=Set Level&level=%d", this.gid, level.getLevelToSet());
     }
 
-    @Autowired
+    @Override
     public String getStatus() {
         return String.format("/json.htm?type=devices&rid=%d", this.gid);
     }

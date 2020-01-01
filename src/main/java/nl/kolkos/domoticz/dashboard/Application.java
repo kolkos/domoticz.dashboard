@@ -1,6 +1,7 @@
 package nl.kolkos.domoticz.dashboard;
 
 import nl.kolkos.domoticz.dashboard.domoticz.configurations.DomoticzConfiguration;
+import nl.kolkos.domoticz.dashboard.domoticz.entities.Contact;
 import nl.kolkos.domoticz.dashboard.domoticz.entities.Dimmer;
 import nl.kolkos.domoticz.dashboard.domoticz.entities.Heater;
 import nl.kolkos.domoticz.dashboard.domoticz.entities.Scene;
@@ -8,6 +9,7 @@ import nl.kolkos.domoticz.dashboard.domoticz.entities.Switch;
 import nl.kolkos.domoticz.dashboard.domoticz.models.CommandRunner;
 import nl.kolkos.domoticz.dashboard.domoticz.models.Level;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.Command;
+import nl.kolkos.domoticz.dashboard.domoticz.models.commands.contact.ContactGetStatusCommand;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.dimmer.DimmerGetStatusCommand;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.dimmer.DimmerSetLevelCommand;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.heater.HeaterSetTemperatureCommand;
@@ -45,6 +47,8 @@ public class Application {
 
             Heater heater = createHeater();
 
+            Contact contact = createContact();
+
 
 
             Scene scene = new Scene();
@@ -65,6 +69,7 @@ public class Application {
             Command sceneGetStatusCommand = new SceneGetStatusCommand(scene);
             Command dimmerSetLevelCommand = createDimmerLevelCommand(4, 25, dimmer);
             Command dimmerGetStatusCommand = new DimmerGetStatusCommand(dimmer);
+            Command contactGetStatusCommand = new ContactGetStatusCommand(contact);
 
 
             HeaterSetTemperatureCommand heaterSetTemperatureCommand = new HeaterSetTemperatureCommand(15.5, heater);
@@ -91,6 +96,9 @@ public class Application {
             commandRunner.setCommand(heaterSetTemperatureCommand);
             commandRunner.run();
 
+            commandRunner.setCommand(contactGetStatusCommand);
+            commandRunner.run();
+
 
         };
     }
@@ -101,6 +109,14 @@ public class Application {
         aSwitch.setName(name);
 
         return aSwitch;
+    }
+
+    private Contact createContact() {
+        Contact contact = new Contact();
+        contact.setGid(3);
+        contact.setName("Contact #1");
+
+        return contact;
     }
 
 
@@ -144,8 +160,8 @@ public class Application {
 
     private Heater createHeater() {
         Heater heater = new Heater();
-        heater.setGid(35);
-        heater.setName("Office");
+        heater.setGid(7);
+        heater.setName("Thermostat #1");
 
         return heater;
     }
