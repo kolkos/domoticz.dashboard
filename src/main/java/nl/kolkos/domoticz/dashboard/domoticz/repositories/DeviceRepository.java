@@ -9,8 +9,11 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
 public interface DeviceRepository<T extends Device> extends CrudRepository<T, Long> {
-//    T findOne(Long id);
-//    Iterable<T> findAll();
-//    Iterable<T> findAll(Sort sort);
-//    Page<T> findAll(Pageable pageable);
+    T findOne(Long id);
+
+    Iterable<T> findAll();
+
+    Iterable<T> findAll(Sort sort);
+
+    Page<T> findAll(Pageable pageable);
 }

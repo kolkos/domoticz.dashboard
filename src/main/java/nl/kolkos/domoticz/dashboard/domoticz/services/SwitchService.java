@@ -13,4 +13,8 @@ public class SwitchService {
     public Switch save(Switch aSwitch) {
         return switchRepository.save(aSwitch);
     }
+
+    public Iterable<Switch> findAll() {
+        return switchRepository.findAll();
+    }
 }

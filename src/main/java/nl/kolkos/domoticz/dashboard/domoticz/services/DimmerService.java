@@ -14,4 +14,8 @@ public class DimmerService {
         return dimmerRepository.save(dimmer);
     }
 
+    public Iterable<Dimmer> findAll() {
+        return dimmerRepository.findAll();
+    }
+
 }

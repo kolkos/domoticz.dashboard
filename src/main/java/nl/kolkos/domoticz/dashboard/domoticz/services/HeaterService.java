@@ -14,4 +14,8 @@ public class HeaterService {
         return heaterRepository.save(heater);
     }
 
+    public Iterable<Heater> findAll() {
+        return heaterRepository.findAll();
+    }
+
 }
