@@ -1,5 +1,13 @@
 package nl.kolkos.domoticz.dashboard.domoticz.entities;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+
+@Data
+@Entity
+@NoArgsConstructor
 public class Contact extends Device {
 
 

@@ -12,11 +12,13 @@ import nl.kolkos.domoticz.dashboard.domoticz.models.commands.Command;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.contact.ContactGetStatusCommand;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.dimmer.DimmerGetStatusCommand;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.dimmer.DimmerSetLevelCommand;
+import nl.kolkos.domoticz.dashboard.domoticz.models.commands.heater.HeaterGetStatusCommand;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.heater.HeaterSetTemperatureCommand;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.light.SwitchOffCommand;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.light.SwitchOnCommand;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.scene.SceneGetStatusCommand;
 import nl.kolkos.domoticz.dashboard.domoticz.models.commands.scene.SceneOnCommand;
+import nl.kolkos.domoticz.dashboard.domoticz.services.ContactService;
 import nl.kolkos.domoticz.dashboard.domoticz.services.DimmerService;
 import nl.kolkos.domoticz.dashboard.domoticz.services.HeaterService;
 import nl.kolkos.domoticz.dashboard.domoticz.services.RestClient;
@@ -35,44 +37,41 @@ public class Application {
     }
 
     @Bean
-    public CommandLineRunner demo(SwitchService switchService, DimmerService dimmerService, DomoticzConfiguration domoticzConfiguration, RestClient restClient, HeaterService heaterService, SceneService sceneService) {
+    public CommandLineRunner demo(SwitchService switchService, DimmerService dimmerService, DomoticzConfiguration domoticzConfiguration, RestClient restClient, HeaterService heaterService, SceneService sceneService, ContactService contactService) {
         return (args) -> {
             CommandRunner commandRunner = new CommandRunner(domoticzConfiguration, restClient);
 
 
             Switch light1 = createSwitch1();
             Switch light2 = createSwitch2();
-
             Dimmer dimmer = createDimmer();
-
             Heater heater = createHeater();
-
             Contact contact = createContact();
-
-
-
-            Scene scene = new Scene();
-            scene.setGid(1);
-            scene.setName("Test scene");
+            Scene scene = createScene();
 
 
             switchService.save(light1);
             switchService.save(light2);
             dimmerService.save(dimmer);
-            sceneService.save(scene);
             heaterService.save(heater);
+            contactService.save(contact);
+            sceneService.save(scene);
 
 
             Command switchLight1On = createSwitchOnCommand(light1);
             Command switchLight2Off = createSwitchOffCommand(light2);
+
             Command switchSceneOn = new SceneOnCommand(scene);
             Command sceneGetStatusCommand = new SceneGetStatusCommand(scene);
+
             Command dimmerSetLevelCommand = createDimmerLevelCommand(4, 25, dimmer);
             Command dimmerGetStatusCommand = new DimmerGetStatusCommand(dimmer);
+
             Command contactGetStatusCommand = new ContactGetStatusCommand(contact);
 
 
-            HeaterSetTemperatureCommand heaterSetTemperatureCommand = new HeaterSetTemperatureCommand(15.5, heater);
+            Command heaterSetTemperatureCommand = new HeaterSetTemperatureCommand(15.5, heater);
+            Command heaterGetStatusCommand = new HeaterGetStatusCommand(heater);
 
 
             commandRunner.setCommand(switchLight1On);
@@ -99,6 +98,9 @@ public class Application {
             commandRunner.setCommand(contactGetStatusCommand);
             commandRunner.run();
 
+            commandRunner.setCommand(heaterGetStatusCommand);
+            commandRunner.run();
+
 
         };
     }
@@ -109,6 +111,14 @@ public class Application {
         aSwitch.setName(name);
 
         return aSwitch;
+    }
+
+    private Scene createScene() {
+        Scene scene = new Scene();
+        scene.setGid(1);
+        scene.setName("Test scene");
+
+        return scene;
     }
 
     private Contact createContact() {

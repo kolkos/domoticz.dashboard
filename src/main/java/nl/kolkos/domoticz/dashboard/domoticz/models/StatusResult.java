@@ -13,6 +13,7 @@ public class StatusResult {
     private int idx;
     private int level;
     private int levelInt;
+    private String setPoint;
     private String name;
     private String LastUpdate;
     private String status;
