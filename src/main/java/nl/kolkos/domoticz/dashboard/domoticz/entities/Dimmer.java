@@ -3,11 +3,14 @@ package nl.kolkos.domoticz.dashboard.domoticz.entities;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import nl.kolkos.domoticz.dashboard.domoticz.models.Level;
+import nl.kolkos.domoticz.dashboard.domoticz.models.PossibleActions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Arrays;
+import java.util.List;
 
 @Data
 @Entity
@@ -32,6 +35,11 @@ public class Dimmer extends Device{
     @Override
     public String getStatus() {
         return String.format("/json.htm?type=devices&rid=%d", this.gid);
+    }
+
+    @Override
+    public List<PossibleActions> getPossibleActions() {
+        return Arrays.asList(PossibleActions.ON, PossibleActions.OFF, PossibleActions.SET_LEVEL, PossibleActions.GET_STATUS);
     }
 
     @Override

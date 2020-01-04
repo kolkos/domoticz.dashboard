@@ -1,6 +1,7 @@
 package nl.kolkos.domoticz.dashboard.domoticz.entities;
 
 import lombok.Data;
+import nl.kolkos.domoticz.dashboard.domoticz.models.PossibleActions;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,7 +23,9 @@ public abstract class Device {
     @NotNull
     String name;
 
-    abstract boolean filter(DeviceType deviceType);
+    public abstract boolean filter(DeviceType deviceType);
 
-    abstract String getStatus();
+    public abstract String getStatus();
+
+    public abstract List<PossibleActions> getPossibleActions();
 }
