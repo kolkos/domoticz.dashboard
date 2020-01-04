@@ -3,6 +3,7 @@ package nl.kolkos.domoticz.dashboard.domoticz.controllers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import nl.kolkos.domoticz.dashboard.domoticz.entities.Contact;
+import nl.kolkos.domoticz.dashboard.domoticz.exceptions.DeviceNotFoundException;
 import nl.kolkos.domoticz.dashboard.domoticz.services.ContactService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +23,7 @@ public class ContactController {
     }
 
     @GetMapping("/get/{gid}")
-    public Contact getContactByGid(@PathVariable("gid") int gid) {
+    public Contact getContactByGid(@PathVariable("gid") int gid) throws DeviceNotFoundException {
         return contactService.getByGid(gid);
     }
 

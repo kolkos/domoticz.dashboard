@@ -2,7 +2,9 @@ package nl.kolkos.domoticz.dashboard.domoticz.services;
 
 import lombok.RequiredArgsConstructor;
 import nl.kolkos.domoticz.dashboard.domoticz.entities.Contact;
+import nl.kolkos.domoticz.dashboard.domoticz.exceptions.DeviceNotFoundException;
 import nl.kolkos.domoticz.dashboard.domoticz.repositories.ContactRepository;
+import nl.kolkos.domoticz.dashboard.domoticz.util.Constants;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,10 +20,9 @@ public class ContactService {
         return contactRepository.findAll();
     }
 
-    public Contact getByGid(int gid) {
-        Contact contact = contactRepository.getByGid(gid);
-
-        return null;
+    public Contact getByGid(int gid) throws DeviceNotFoundException {
+        String errorMessage = String.format(Constants.DEVICE_NOT_FOUND_ERROR_MESSAGE_TEMPLATE, "Contact", gid);
+        return contactRepository.getByGid(gid).orElseThrow(() -> new DeviceNotFoundException(errorMessage));
     }
 
 }
