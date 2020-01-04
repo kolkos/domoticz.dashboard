@@ -50,12 +50,12 @@ public class Application {
             Scene scene = createScene();
 
 
-            switchService.save(light1);
-            switchService.save(light2);
-            dimmerService.save(dimmer);
-            heaterService.save(heater);
-            contactService.save(contact);
-            sceneService.save(scene);
+//            switchService.save(light1);
+//            switchService.save(light2);
+//            dimmerService.save(dimmer);
+//            heaterService.save(heater);
+//            contactService.save(contact);
+//            sceneService.save(scene);
 
 
             Command switchLight1On = createSwitchOnCommand(light1);
@@ -95,11 +95,13 @@ public class Application {
             commandRunner.setCommand(heaterSetTemperatureCommand);
             commandRunner.run();
 
+            commandRunner.setCommand(heaterGetStatusCommand);
+            commandRunner.run();
+
             commandRunner.setCommand(contactGetStatusCommand);
             commandRunner.run();
 
-            commandRunner.setCommand(heaterGetStatusCommand);
-            commandRunner.run();
+
 
 
         };
@@ -143,7 +145,7 @@ public class Application {
         dimmer.setGid(6);
         dimmer.setName("Hal");
         dimmer.setMinLevel(0);
-        dimmer.setMaxLevel(13);
+        dimmer.setMaxLevel(16);
 
         return dimmer;
     }
@@ -172,6 +174,8 @@ public class Application {
         Heater heater = new Heater();
         heater.setGid(7);
         heater.setName("Thermostat #1");
+        heater.setMinTemperature(10);
+        heater.setMaxTemperature(30);
 
         return heater;
     }

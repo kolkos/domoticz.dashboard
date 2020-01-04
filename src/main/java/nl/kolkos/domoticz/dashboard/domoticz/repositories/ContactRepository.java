@@ -6,4 +6,5 @@ import javax.transaction.Transactional;
 
 @Transactional
 public interface ContactRepository extends DeviceRepository<Contact> {
+
 }

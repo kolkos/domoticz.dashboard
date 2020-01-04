@@ -18,4 +18,10 @@ public class ContactService {
         return contactRepository.findAll();
     }
 
+    public Contact getByGid(int gid) {
+        Contact contact = contactRepository.getByGid(gid);
+
+        return null;
+    }
+
 }

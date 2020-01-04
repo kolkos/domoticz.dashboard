@@ -4,20 +4,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import nl.kolkos.domoticz.dashboard.domoticz.models.Level;
 import nl.kolkos.domoticz.dashboard.domoticz.models.PossibleActions;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.validation.constraints.Min;
 import java.util.Arrays;
 import java.util.List;
 
 @Data
 @Entity
 @NoArgsConstructor
-public class Dimmer extends Device{
+public class Dimmer extends Device {
 
+    @Min(0)
     private int minLevel;
+
+    @Min(1)
     private int maxLevel;
 
     public String on() {

@@ -6,5 +6,5 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
 public interface DeviceRepository<T extends Device> extends JpaRepository<T, Long> {
-
+    T getByGid(int gid);
 }
