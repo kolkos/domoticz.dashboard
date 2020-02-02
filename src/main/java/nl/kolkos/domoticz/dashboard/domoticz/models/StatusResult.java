@@ -37,4 +37,7 @@ public class StatusResult {
     @SerializedName(value = "Status")
     private String status;
 
+    @SerializedName(value = "SwitchType")
+    private String switchType;
+
 }

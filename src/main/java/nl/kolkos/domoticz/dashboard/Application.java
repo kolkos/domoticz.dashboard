@@ -21,6 +21,7 @@ import nl.kolkos.domoticz.dashboard.domoticz.models.commands.scene.SceneOnComman
 import nl.kolkos.domoticz.dashboard.domoticz.services.ContactService;
 import nl.kolkos.domoticz.dashboard.domoticz.services.DimmerService;
 import nl.kolkos.domoticz.dashboard.domoticz.services.HeaterService;
+import nl.kolkos.domoticz.dashboard.domoticz.services.JsonTransformService;
 import nl.kolkos.domoticz.dashboard.domoticz.services.RestClient;
 import nl.kolkos.domoticz.dashboard.domoticz.services.SceneService;
 import nl.kolkos.domoticz.dashboard.domoticz.services.SwitchService;
@@ -37,9 +38,9 @@ public class Application {
     }
 
     @Bean
-    public CommandLineRunner demo(SwitchService switchService, DimmerService dimmerService, DomoticzConfiguration domoticzConfiguration, RestClient restClient, HeaterService heaterService, SceneService sceneService, ContactService contactService) {
+    public CommandLineRunner demo(SwitchService switchService, DimmerService dimmerService, DomoticzConfiguration domoticzConfiguration, RestClient restClient, HeaterService heaterService, SceneService sceneService, ContactService contactService, JsonTransformService jsonTransformService) {
         return (args) -> {
-            CommandRunner commandRunner = new CommandRunner(domoticzConfiguration, restClient);
+            CommandRunner commandRunner = new CommandRunner(domoticzConfiguration, restClient, jsonTransformService);
 
 
             Switch light1 = createSwitch1();

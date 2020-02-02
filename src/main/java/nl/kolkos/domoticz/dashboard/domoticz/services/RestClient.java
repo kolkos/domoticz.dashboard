@@ -2,6 +2,8 @@ package nl.kolkos.domoticz.dashboard.domoticz.services;
 
 import lombok.RequiredArgsConstructor;
 import nl.kolkos.domoticz.dashboard.domoticz.configurations.DomoticzConfiguration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +21,8 @@ public class RestClient {
     private final RestTemplate restTemplate;
     private final DomoticzConfiguration domoticzConfiguration;
 
+    private static final Logger LOGGER = LogManager.getLogger(RestClient.class);
+
     public String callUrl(String url) {
         HttpHeaders headers = createHeaders(domoticzConfiguration.getUsername(), domoticzConfiguration.getPassword());
 
@@ -33,15 +37,17 @@ public class RestClient {
     }
 
     private HttpHeaders createHeaders(String username, String password) {
-        String plainCreds = String.format("%s:%s", username, password);
+        String plainCredentials = String.format("%s:%s", username, password);
 
-        byte[] plainCredsBytes = plainCreds.getBytes();
-        byte[] base64CredsBytes = Base64.encodeBase64(plainCredsBytes);
-        String base64Creds = new String(base64CredsBytes);
+        byte[] plainCredentialsBytes = plainCredentials.getBytes();
+        byte[] base64CredentialsBytes = Base64.encodeBase64(plainCredentialsBytes);
+        String base64Credentials = new String(base64CredentialsBytes);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Basic " + base64Creds);
+        headers.add("Authorization", "Basic " + base64Credentials);
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+
+        LOGGER.info(headers);
 
         return headers;
     }
