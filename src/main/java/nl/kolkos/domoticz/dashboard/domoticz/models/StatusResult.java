@@ -40,4 +40,10 @@ public class StatusResult {
     @SerializedName(value = "SwitchType")
     private String switchType;
 
+    @SerializedName(value = "Type")
+    private String type;
+
+    @SerializedName(value = "MaxDimLevel")
+    private int maxDimLevel;
+
 }

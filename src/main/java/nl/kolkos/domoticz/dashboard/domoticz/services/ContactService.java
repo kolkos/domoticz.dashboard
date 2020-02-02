@@ -1,19 +1,30 @@
 package nl.kolkos.domoticz.dashboard.domoticz.services;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import nl.kolkos.domoticz.dashboard.domoticz.entities.Contact;
 import nl.kolkos.domoticz.dashboard.domoticz.exceptions.DeviceNotFoundException;
+import nl.kolkos.domoticz.dashboard.domoticz.models.StatusResult;
 import nl.kolkos.domoticz.dashboard.domoticz.repositories.ContactRepository;
 import nl.kolkos.domoticz.dashboard.domoticz.util.Constants;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class ContactService {
     private final ContactRepository contactRepository;
 
     public Contact save(Contact contact) {
+        log.info("Saving contact to the database: {}", contact);
         return contactRepository.save(contact);
+    }
+
+    public Contact createContact(StatusResult statusResult) {
+        Contact contact = new Contact();
+        contact.setName(statusResult.getName());
+        contact.setGid(statusResult.getIdx());
+        return this.save(contact);
     }
 
     public Iterable<Contact> findAll() {

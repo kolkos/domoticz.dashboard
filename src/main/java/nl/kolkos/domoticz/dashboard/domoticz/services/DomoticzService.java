@@ -1,22 +1,24 @@
 package nl.kolkos.domoticz.dashboard.domoticz.services;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import nl.kolkos.domoticz.dashboard.domoticz.configurations.DomoticzConfiguration;
+import nl.kolkos.domoticz.dashboard.domoticz.entities.Device;
+import nl.kolkos.domoticz.dashboard.domoticz.entities.DeviceFactory;
 import nl.kolkos.domoticz.dashboard.domoticz.models.DomoticzResponse;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class DomoticzService {
 
     private final RestClient restClient;
     private final DomoticzConfiguration domoticzConfiguration;
     private final JsonTransformService jsonTransformService;
-
-    private static final Logger LOGGER = LogManager.getLogger(DomoticzService.class);
-
+    private final DeviceFactory deviceFactory;
 
     public DomoticzResponse listAllDevicesInDomoticz() {
         String domoticzHost = domoticzConfiguration.getBaseUrl();
@@ -28,8 +30,15 @@ public class DomoticzService {
         String response = restClient.callUrl(url);
         DomoticzResponse respObject = jsonTransformService.transformDomoticzResponse(response);
 
-        LOGGER.info(respObject);
+        log.info(respObject);
         return respObject;
+    }
+
+    public List<Device> syncDevices() {
+        DomoticzResponse devices = listAllDevicesInDomoticz();
+
+        return deviceFactory.createDevicesFromDomoticzResponse(devices);
+
     }
 
 }

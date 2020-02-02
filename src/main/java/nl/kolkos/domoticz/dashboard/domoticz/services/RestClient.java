@@ -1,9 +1,8 @@
 package nl.kolkos.domoticz.dashboard.domoticz.services;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import nl.kolkos.domoticz.dashboard.domoticz.configurations.DomoticzConfiguration;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,11 +16,10 @@ import java.util.Arrays;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class RestClient {
     private final RestTemplate restTemplate;
     private final DomoticzConfiguration domoticzConfiguration;
-
-    private static final Logger LOGGER = LogManager.getLogger(RestClient.class);
 
     public String callUrl(String url) {
         HttpHeaders headers = createHeaders(domoticzConfiguration.getUsername(), domoticzConfiguration.getPassword());
@@ -47,7 +45,7 @@ public class RestClient {
         headers.add("Authorization", "Basic " + base64Credentials);
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
-        LOGGER.info(headers);
+        log.info(headers);
 
         return headers;
     }
