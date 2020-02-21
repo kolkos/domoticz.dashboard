@@ -21,17 +21,17 @@ public class DomoticzService {
     private final DeviceFactory deviceFactory;
 
     public DomoticzResponse listAllDevicesInDomoticz() {
-        String domoticzHost = domoticzConfiguration.getBaseUrl();
-        String endpoint = "/json.htm?type=devices&filter=light&used=true&order=Name";
+        DomoticzResponse responseLights = listLightDevices();
+        DomoticzResponse responseTemp = listTempDevices();
+
+        DomoticzResponse response = new DomoticzResponse();
+        response.setStatus(responseTemp.getStatus());
+        response.setTitle(responseTemp.getTitle());
+        response.appendToStatusResult(responseLights.getResult());
+        response.appendToStatusResult(responseTemp.getResult());
 
 
-        String url = String.format("%s%s", domoticzHost, endpoint);
-
-        String response = restClient.callUrl(url);
-        DomoticzResponse respObject = jsonTransformService.transformDomoticzResponse(response);
-
-        log.info(respObject);
-        return respObject;
+        return response;
     }
 
     public List<Device> syncDevices() {
@@ -40,5 +40,34 @@ public class DomoticzService {
         return deviceFactory.createDevicesFromDomoticzResponse(devices);
 
     }
+
+
+    private DomoticzResponse listLightDevices() {
+        String endpoint = "/json.htm?type=devices&filter=light&used=true&order=Name";
+        String url = createUrl(endpoint);
+        return callDomoticz(url);
+    }
+
+    private DomoticzResponse listTempDevices() {
+        String endpoint = "/json.htm?type=devices&filter=temp&used=true&order=Name";
+        String url = createUrl(endpoint);
+        return callDomoticz(url);
+    }
+
+    private String createUrl(String endpoint) {
+        String domoticzHost = domoticzConfiguration.getBaseUrl();
+        return String.format("%s%s", domoticzHost, endpoint);
+    }
+
+    private DomoticzResponse callDomoticz(String url) {
+        String response = restClient.callUrl(url);
+        DomoticzResponse respObject = jsonTransformService.transformDomoticzResponse(response);
+        log.info(respObject);
+
+        return respObject;
+    }
+
+
+
 
 }

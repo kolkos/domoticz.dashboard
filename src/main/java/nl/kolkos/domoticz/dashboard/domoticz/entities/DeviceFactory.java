@@ -44,6 +44,10 @@ public class DeviceFactory {
                 break;
             case "On/Off":
                 device = switchService.createSwitch(statusResult);
+                break;
+            case "Temp + Humidity":
+            case "Temp":
+                break;
         }
 
         return device;
